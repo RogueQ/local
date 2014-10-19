@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>framework</groupId>
+  <artifactId>common</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>framework Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <!-- SpringMVC 依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>3.0.5.RELEASE</version>
+    </dependency>
+     
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>3.0.5.RELEASE</version>
+    </dependency>
+    <!-- Spring ORM依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>3.0.5.RELEASE</version>
+    </dependency>
+    <!-- Spring beans依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>3.0.5.RELEASE</version>
+    </dependency>
+    <!-- commons-dbcp 依赖 hibernate数据源配置会用到org.apache.commons.dbcp.BasicDataSource -->
+    <dependency>
+  	  <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <!-- 引入log4j 依赖-->
+    <dependency>
+  	  <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+    <!-- AspectJ是一个专门用来实现动态代理(AOP编程)的类库 AspectJ是面向切面编程的框架 -->
+    <dependency>  
+      <groupId>org.aspectj</groupId>  
+      <artifactId>aspectjrt</artifactId>  
+      <version>1.8.2</version>  
+    </dependency>
+    <!-- 如果没有添加这个依赖 使用aop时会报出：
+         BeanPostProcessor before instantiation of bean failed; 
+         nested exception is java.lang.NoClassDefFoundError: org/aspectj/weaver/reflect/ReflectionWorld$ReflectionWorldException 
+                   异常
+    -->
+    <dependency>  
+      <groupId>org.aspectj</groupId>  
+      <artifactId>aspectjweaver</artifactId>  
+      <version>1.8.2</version>  
+    </dependency>
+    <!-- javamail依赖 (用于发送邮件)-->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-email</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <!-- 配置hibernate依赖 -->
+    <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-core</artifactId>
+       <version>3.3.2.GA</version>
+    </dependency>
+    <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-annotations</artifactId>
+       <version>3.4.0.GA</version>
+    </dependency>
+    <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-commons-annotations</artifactId>
+       <version>3.3.0.ga</version>
+    </dependency>
+    <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-entitymanager</artifactId>
+       <version>3.4.0.GA</version>
+    </dependency>
+    <dependency>
+       <groupId>mysql</groupId>
+       <artifactId>mysql-connector-java</artifactId>
+       <version>5.1.10</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>myframe_maven</finalName>
+  <plugins> 
+    <!-- compiler插件, 设定JDK版本 --> 
+    <plugin> 
+ 	  <groupId>org.apache.maven.plugins</groupId> 
+      <artifactId>maven-compiler-plugin</artifactId> 
+      <version>3.1</version> 
+      <configuration> 
+        <source>${jdk.version}</source> 
+        <target>${jdk.version}</target> 
+        <showWarnings>true</showWarnings> 
+      </configuration> 
+    </plugin> 
+  </plugins> 
+  <defaultGoal>compile</defaultGoal>
+  </build>
+</project>
