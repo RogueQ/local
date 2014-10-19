@@ -70,7 +70,7 @@
 			</props>
 		</property>
 		<property name="mappingLocations">
-			<value>classpath:com/rogue/module/*.hbm.xml </value> <!-- 实体类映射文件存放位置 -->
+			<value>classpath:com/rogue/module*.hbm.xml </value> <!-- 实体类映射文件存放位置 -->
 		</property>
 	</bean>
 
