@@ -1,10 +1,9 @@
 package com.rogue.frame.dynamicDataSource;
 
-
 /**  
  *   
  * 类名称：DataSourceContextHolder  
- * 类描述：  
+ * 类描述：数据源上下文句柄，通过setDataSourceType方法设置数据源
  * 创建人：Rogue  
  * 修改人：Rogue  
  * 修改时间：2014年10月19日 下午12:58:15  

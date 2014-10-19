@@ -1,5 +1,5 @@
 /**  
- * 项目名：myframe_maven  
+ * 项目名：common  
  * 包名：com.rogue.frame.log  
  * 文件名：Log4jHTMLLayOut.java  
  * 版本信息：  
@@ -17,7 +17,7 @@ import org.apache.log4j.spi.LoggingEvent;
  *   
  * 类名称：Log4jHTMLLayOut  
  * 类描述：Log4jHTMLLayOut 类描述：自定义log4j的layout参数，
- * 		   由于log4j默认采用的纯文本方式.这样不便于我们在邮件中查看,因此覆盖它的layout,自定义属于我们自己的layout
+ * 		  由于log4j默认采用的纯文本方式.这样不便于我们在邮件中查看,因此覆盖它的layout,自定义属于我们自己的layout
  *       通过继承log4j的HTMLLayout并重写getContentType方法，避免了中文乱码  
  * 创建人：Rogue  
  * 修改人：Rogue  

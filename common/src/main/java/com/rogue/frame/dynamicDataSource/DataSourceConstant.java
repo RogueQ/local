@@ -1,13 +1,12 @@
 package com.rogue.frame.dynamicDataSource;
 
-
 /**  
  *   
  * 类名称：DataSourceConstant  
- * 类描述：数据源常量类 
+ * 类描述：数据源常量类，放置与动态切换数据源相关的一些常量
  * 创建人：Rogue  
  * 修改人：Rogue  
- * 修改时间：2014年10月19日 下午12:54:38  
+ * 修改时间：2014年10月19日 下午6:04:14  
  * 修改备注：  
  * @version 1.0.0  
  *   

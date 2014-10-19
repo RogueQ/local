@@ -1,6 +1,6 @@
 
 /**  
- * 项目名：myframe_maven  
+ * 项目名：commnon  
  * 包名：com.rogue.frame.common.dao  
  * 文件名：CommonDao.java  
  * 版本信息：  
