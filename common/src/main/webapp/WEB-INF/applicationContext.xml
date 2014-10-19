@@ -1,58 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-<beans
-	xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-		http://activemq.apache.org/schema/core 
-		http://activemq.apache.org/schema/core/activemq-core.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+							http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+							http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
 	<!-- 整合Hibernate Start -->
 	<!-- 数据源相同的内容 -->
-	<bean
-	 	class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-	 	id="parentDataSource">
-	 	<property name="driverClassName"
-	  	value="com.mysql.jdbc.Driver">
-	 	</property>
-	 	<property name="username">
-	  		<value>root</value>
-	 	</property>
-	 	<property name="password">
-	  		<value>root</value>
-	 	</property>
+	<bean class="org.apache.commons.dbcp.BasicDataSource"
+		id="parentDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>root</value>
+		</property>
 	</bean>
 	<!-- 默认数据源 本地数据库 framework -->
 	<bean parent="parentDataSource" id="defaultDataSource">
 		<property name="url">
-	   		<value>jdbc:mysql://127.0.0.1:3306/framework?useUnicode=true&amp;characterEncoding=utf-8</value>
-	  	</property>
+			<value>jdbc:mysql://127.0.0.1:3306/framework?useUnicode=true&amp;characterEncoding=utf-8</value>
+		</property>
 	</bean>
-	 <!-- 本地数据库 test （用于测试动态切换数据源）-->
+	<!-- 本地数据库 test （用于测试动态切换数据源） -->
 	<bean parent="parentDataSource" id="testDataSource">
 		<property name="url">
-	   		<value>jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8</value>
-	  	</property>
+			<value>jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8</value>
+		</property>
 	</bean>
-	
+
 	<!-- 编写spring 配置文件的配置多数源映射关系 -->
-	<bean class="com.rogue.frame.dynamicDataSource"
-		id="dataSource">
+	<bean class="com.rogue.frame.dynamicDataSource.DynamicDataSource" id="dataSource">
 		<property name="targetDataSources">
-	   		<map key-type ="java.lang.String">
-	    		<entry value-ref="defaultDataSource" key="default"></entry>
-	    		<entry value-ref="testDataSource" key="test"></entry>
-	   		</map>
-	  	</property>
-	  	<property name="defaultTargetDataSource"
-	   		ref="defaultDataSource">
-	  	</property>
+			<map key-type="java.lang.String">
+				<entry value-ref="defaultDataSource" key="default"></entry>
+				<entry value-ref="testDataSource" key="test"></entry>
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="defaultDataSource"></property>
 	</bean>
-	
-	
+
 	<!-- 配置SessionFactory (LocalSessionFactoryBean) -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -63,31 +53,27 @@
 		<!-- hibernate属性 -->
 		<property name="hibernateProperties">
 			<props>
-				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> -->
-				<prop  key="hibernate.bytecode.use_reflection_optimizer">true </prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true </prop>
 				<prop key="connection.provider_class">org.hibernate.connection.ProxoolConnectionProvider</prop>
 				<prop key="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory </prop>
 				<prop key="hibernate.connection.release_mode">auto</prop>
-				<prop key="hibernate.cglib.use_reflection_optimizer">true</prop> 
+				<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
 				<prop key="Hibernate.current_session_context_class">thread</prop>
-				<!--<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>-->
-				<prop key="hibernate.dialect">com.zq.frame.dialect.SpasvoMySQLDialect</prop>
+				<!--<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop> -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.connection.autocommit">false</prop>
-             	<prop key="hibernate.fetch_size">50</prop>
-             	<prop key="hibernate.jdbc.batch_size">25</prop>
-             	<!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
+				<prop key="hibernate.fetch_size">50</prop>
+				<prop key="hibernate.jdbc.batch_size">25</prop>
+				<!--<prop key="hibernate.hbm2ddl.auto">create</prop> -->
 			</props>
 		</property>
 		<property name="mappingLocations">
 			<value>classpath:com/rogue/module/*.hbm.xml </value> <!-- 实体类映射文件存放位置 -->
 		</property>
 	</bean>
-	
-	<aop:aspectj-autoproxy proxy-target-class="true"/>  
-	<bean id="dataSourceAspect" class="com.zq.test.datasource.DynamicDataSourceAspect"/>
-	
+
 	<!-- 配置HibernateTemplate (Session对象) -->
 	<bean id="hibernateTemplete" class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory"></property>
